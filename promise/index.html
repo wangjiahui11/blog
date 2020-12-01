@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPromise</title>
+  <script type="module">
+    import { MyPromise } from "./MyPromise.js";
+    let p1 = new MyPromise((resolve, reject) => {
+      resolve('FULFILLED')
+    })
+    let p2= new MyPromise((resolve, reject) => {
+        resolve(p1)
+    })
+    p2.then(result => {
+      console.log(result, 'success2');
+    })
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>

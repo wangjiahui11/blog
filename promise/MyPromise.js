@@ -18,30 +18,13 @@ class MyPromise {
     this._fulfilledQueues = []
     // 添加失败回调函数队列
     this._rejectedQueues = []
-    // 执行handle (resolve,reject)=>{},参数：_resolve,_reject
+    // 执行handle
     try {
       handle(this._resolve.bind(this), this._reject.bind(this))
     } catch (err) {
       this._reject(err)
     }
   }
-  // 添加resovle时执行的函数 ----------改变status的状态和value的值
-  // _resolve (val) {
-  //   console.log('run----------1');
-  //   if (this._status !== PENDING) return
-  //   // 依次执行成功队列中的函数，并清空队列
-  //   const run = () => {
-  //     console.log('run----------2');
-  //     this._status = FULFILLED
-  //     this._value = val
-  //     let cb;
-  //     while (cb = this._fulfilledQueues.shift()) {
-  //       cb(val)
-  //     }
-  //   }
-  //   // 为了支持同步的Promise，这里采用异步调用
-  //  setTimeout(() => run(), 0)
-  // }
   // 添加resovle时执行的函数
   _resolve (val) {
     const run = () => {
@@ -85,8 +68,17 @@ class MyPromise {
   // 添加reject时执行的函数
   _reject (err) {
     if (this._status !== PENDING) return
-    this._status = REJECTED
-    this._value = err
+    // 依次执行失败队列中的函数，并清空队列
+    const run = () => {
+      this._status = REJECTED
+      this._value = err
+      let cb;
+      while (cb = this._rejectedQueues.shift()) {
+        cb(err)
+      }
+    }
+    // 为了支持同步的Promise，这里采用异步调用
+    setTimeout(run, 0)
   }
   // 添加then方法
   then (onFulfilled, onRejected) {
@@ -142,8 +134,6 @@ class MyPromise {
         // 当状态已经改变时，立即执行对应的回调函数
         case FULFILLED:
           fulfilled(_value)
-          // let res =  onFulfilled(_value)
-          // onFulfilledNext(res)
           break
         case REJECTED:
           rejected(_value)
@@ -155,6 +145,55 @@ class MyPromise {
   catch (onRejected) {
     return this.then(undefined, onRejected)
   }
+  // 添加静态resolve方法
+  static resolve (value) {
+    // 如果参数是MyPromise实例，直接返回这个实例
+    if (value instanceof MyPromise) return value
+    return new MyPromise(resolve => resolve(value))
+  }
+  // 添加静态reject方法
+  static reject (value) {
+    return new MyPromise((resolve, reject) => reject(value))
+  }
+  // 添加静态all方法
+  static all (list) {
+    return new MyPromise((resolve, reject) => {
+      /**
+       * 返回值的集合
+       */
+      let values = []
+      let count = 0
+      for (let [i, p] of list.entries()) {
+        // 数组参数如果不是MyPromise实例，先调用MyPromise.resolve
+        this.resolve(p).then(res => {
+          values[i] = res
+          count++
+          // 所有状态都变成fulfilled时返回的MyPromise状态就变成fulfilled
+          if (count === list.length) resolve(values)
+        }, err => {
+          // 有一个被rejected时返回的MyPromise状态就变成rejected
+          reject(err)
+        })
+      }
+    })
+  }
+  // 添加静态race方法
+  static race (list) {
+    return new MyPromise((resolve, reject) => {
+      for (let p of list) {
+        // 只要有一个实例率先改变状态，新的MyPromise的状态就跟着改变
+        this.resolve(p).then(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+      }
+    })
+  }
+  finally (cb) {
+    return this.then(
+      value => MyPromise.resolve(cb()).then(() => value),
+      reason => MyPromise.resolve(cb()).then(() => { throw reason })
+    );
+  }
 }
-
-export { MyPromise }

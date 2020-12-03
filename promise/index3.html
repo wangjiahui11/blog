@@ -4,7 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyPromise-最终版本--添加静态方法</title>
+  <title>Promise-执行规则的完善</title>
+</head>
+
+<body>
   <script>
     // 判断变量否为function
     const isFunction = variable => typeof variable === 'function'
@@ -12,7 +15,6 @@
     const PENDING = 'PENDING'
     const FULFILLED = 'FULFILLED'
     const REJECTED = 'REJECTED'
-
     class MyPromise {
       constructor(handle) {
         if (!isFunction(handle)) {
@@ -26,14 +28,14 @@
         this._fulfilledQueues = []
         // 添加失败回调函数队列
         this._rejectedQueues = []
-        // 执行handle
+        // 执行handle (resolve,reject)=>{},参数：_resolve,_reject
         try {
           handle(this._resolve.bind(this), this._reject.bind(this))
         } catch (err) {
           this._reject(err)
         }
       }
-      // 添加resovle时执行的函数
+      // 添加resovle时执行的函数 ----------改变status的状态和value的值
       _resolve(val) {
         const run = () => {
           if (this._status !== PENDING) return
@@ -76,7 +78,6 @@
       // 添加reject时执行的函数
       _reject(err) {
         if (this._status !== PENDING) return
-        // 依次执行失败队列中的函数，并清空队列
         const run = () => {
           this._status = REJECTED
           this._value = err
@@ -85,7 +86,6 @@
             cb(err)
           }
         }
-        // 为了支持同步的Promise，这里采用异步调用
         setTimeout(run, 0)
       }
       // 添加then方法
@@ -139,7 +139,6 @@
               this._fulfilledQueues.push(fulfilled)
               this._rejectedQueues.push(rejected)
               break
-            // 当状态已经改变时，立即执行对应的回调函数
             case FULFILLED:
               fulfilled(_value)
               break
@@ -153,79 +152,78 @@
       catch(onRejected) {
         return this.then(undefined, onRejected)
       }
-      // 添加静态resolve方法
-      static resolve(value) {
-        // 如果参数是MyPromise实例，直接返回这个实例
-        if (value instanceof MyPromise) return value
-        return new MyPromise(resolve => resolve(value))
-      }
-      // 添加静态reject方法
-      static reject(value) {
-        return new MyPromise((resolve, reject) => reject(value))
-      }
-      // 添加静态all方法
-      static all(list) {
-        return new MyPromise((resolve, reject) => {
-          /**
-           * 返回值的集合
-           */
-          let values = []
-          let count = 0
-          for (let [i, p] of list.entries()) {
-            // 数组参数如果不是MyPromise实例，先调用MyPromise.resolve
-            this.resolve(p).then(res => {
-              values[i] = res
-              count++
-              // 所有状态都变成fulfilled时返回的MyPromise状态就变成fulfilled
-              if (count === list.length) resolve(values)
-            }, err => {
-              // 有一个被rejected时返回的MyPromise状态就变成rejected
-              reject(err)
-            })
-          }
-        })
-      }
-      // 添加静态race方法
-      static race(list) {
-        return new MyPromise((resolve, reject) => {
-          for (let p of list) {
-            // 只要有一个实例率先改变状态，新的MyPromise的状态就跟着改变
-            this.resolve(p).then(res => {
-              resolve(res)
-            }, err => {
-              reject(err)
-            })
-          }
-        })
-      }
-      finally(cb) {
-        return this.then(
-          value => MyPromise.resolve(cb()).then(() => value),
-          reason => MyPromise.resolve(cb()).then(() => { throw reason })
-        );
-      }
     }
   </script>
-
   <script>
-    let p1 = new MyPromise((resolve, reject) => { resolve('p1') })
-    let p2 = new MyPromise((resolve, reject) => { resolve('p2') })
-    let p3 = new MyPromise((resolve, reject) => { resolve('p3') })
-    let pAll1 = MyPromise.all([p1, p2, p3])
-    pAll1.then(
-      res => { console.log(res) },
-      err => { console.log(err) }
-    ).finally(res => { console.log('end') } )
-    let pRace = MyPromise.race([p1, p2, p3])
-    pRace.then(res => { console.log(res) })
-    // p2.then(
-    //   res => { console.log(res, 'success2'); },
-    //   err => { console.log(err, 'fail'); }
-    // )
-  </script>
-</head>
 
-<body>
+    /*
+      promise的执行规则：
+      1.onFulfilled或onRejected 为函数,有两种情况；
+        a.若x返回值若不为Promise对象，即x值是新的onFulfilled 或者 onRejected 函数的参数.
+        b.若x返回值若为Promise对象，就会等待该 Promise 对象(即 x )的状态发生变化，才会被调用，并且新的 Promise 状态和 x 的状态相同.
+     2.如果 onFulfilled 或者onRejected 抛出一个异常 e ，则 p2 必须变为失败（Rejected），并返回失败的值 e.
+     3.如果 onFulfilled 不是函数且 p1 状态为成功（Fulfilled）， p2 必须变为成功（Fulfilled并返回p1成功的值.
+     4.如果 onRejected  不是函数且 p1 状态为失败（Rejected），p2必须变为失败（Rejected） 并返回 p1 失败的值.
+    */
+    let p1, p2
+    debugger
+    // 例子1-a:
+    p1 = new MyPromise((resolve, reject) => {
+      resolve('成功1')
+        console.log(111111111)
+    })
+    p2 = p1.then(res => {
+      return new MyPromise((resolve, reject) => {
+        resolve('这里返回一个Promise')
+      })
+    })
+    p2.then(res => { console.log(res) })  //这里返回一个Promise
+
+    // 例子1-b:
+    // p1 = new MyPromise((resolve, reject) => {
+    //   resolve('成功1')
+    // })
+    // p2 = p1.then(res => {
+    //    return '这里返回一个普通值'
+    // })
+    // p2.then(res => { console.log(res) })  //这里返回一个普通值
+
+
+    // // 例子2:
+    // p1 = new MyPromise((resolve, reject) => {
+    //   resolve('成功1')
+    // })
+    // p2 = p1.then(res => {
+    //   throw new Error('这里抛出一个异常e')
+    // })
+    // p2.then(
+    //   res => { console.log(res) },
+    //   err => { console.log(err)
+    // })  //这里抛出一个异常e
+
+    // // 例子3:
+    // p1 = new MyPromise((resolve, reject) => {
+    //   resolve('success')
+    // })
+    // p2 = p1.then('这里的onFulfilled是一个文本' )
+    // p2.then(
+    //   res => { console.log(res) },
+    //   err => {console.log(err) }
+    // )  //success
+
+    // 例子4:
+    // p1 = new MyPromise((resolve, reject) => {
+    //   reject('fail')
+    // })
+    // p2 = p1.then(res => {
+    //  return 'sucess'
+    // }, '这里的onRejected是一个文本')
+    // p2.then(
+    //   res => { console.log(res)},
+    //   err => { console.log(err)}
+    // )  //fail
+
+  </script>
 </body>
 
 </html>

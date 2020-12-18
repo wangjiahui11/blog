@@ -142,7 +142,7 @@
 
 2. ##### Promise
 
-   - 简述
+   - **简述**
 
      ```
      定义：
@@ -156,11 +156,11 @@
            pending变为rejected    reject(失败)
      ```
 
-     ![pronise三种状态](C:\Users\wangj\Desktop\react-study\pronise三种状态.png)
+     ![pronise三种状态.png](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/pronise%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81.png?raw=true)
 
-     ![Promise的状态变化](E:\wangjh\web资料\learn\blog\图片及截图\Promise状态.png)
+     ![Promise状态.png](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/Promise%E7%8A%B6%E6%80%81.png?raw=true)
 
-   - 基本用法
+   - **基本用法**
 
      ```
      Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。
@@ -229,10 +229,10 @@
          (result) => {console.log('result:',result)},
          (err) => {console.log('err:',err)}
          )
-    
+
          // resolve 的值是 2
          Promise.resolve(2).finally((res) => {console.log(res)})
-    
+
      ```
 
    - **Promise chain链式编程**
@@ -261,7 +261,7 @@
 
 
 
-   - Promise.all(),Promise.race(),Promise.allSettled() ,Promise.any()
+   - **Promise.all(),Promise.race(),Promise.allSettled() ,Promise.any()**
 
      ```
      all：将多个Promise包装成一个Promise
@@ -306,13 +306,13 @@
 
         ```
         ES7引入了async和await 目的：使得异步操作变得更加方便。它就是 Generator 函数的语法糖。
-     
+
         想较比于 Generator，Async 函数的改进在于下面四点：
             1.内置执行器。Generator 函数的执行必须依靠执行器，而 Aysnc 函数自带执行器，调用方式跟普通函数的调用一样
             2.更好的语义。async 和 await 相较于 * 和 yield 更加语义化
             3.更广的适用性。co 模块约定，yield 命令后面只能是 Thunk 函数或 Promise对象。而 async 函数的 await 命令后面则可以是 Promise 或者 原始类型的值（Number，string，boolean，但这时等同于同步操作）
             4.返回值是 Promise。async 函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用
-     
+
         ```
 
       - **async 用法**
@@ -323,27 +323,27 @@
             1.async函数内部的返回值会成为回调函数的参数，返回是一个Promise对象；
             2.async必须等到内部所有await命令后面的 Promise 对象执行完，才会发生状态改变；即asyns异步执行完，才执行then方法的回调函数；
             3.异步函数内部可以使用await;
-     
+
         常见的写法：
         // 函数声明
         async function foo(){}
-     
+
         // 函数表达式
         const foo = aysnc function(){}
-     
+
         // 箭头函数
         const foo = aysnc ()=>{}
-     
+
         // 对象的方法
         let obj={ aysnc ()=>{} }
         obj.foo.then(()=>{console.log(11111111)})
-     
+
         例子1:
             async function f() {
               return 'hello world';
             }
             f().then(v => console.log(v))
-     
+
         例子2：
             function a() {
               return new Promise((resolve, reject) => {
@@ -359,16 +359,16 @@
                 console.log('getData执行了')
                 return text+'-----a：'+ a1 +'------b:'+b1
             }
-     
+
             getData('async').then(console.log)
-     
+
         例子3：
             async function f() {
               // return 123;
               // 等同于
               return await 123;
             }
-     
+
             f().then(v => console.log(v)) //123
         ```
 
@@ -380,19 +380,19 @@
             1.只能在async函数内部使用
             2.await命令后面是一个 Promise 对象，返回该对象的结果。如果不是，就直接返回对应的值。
             3.在async函数中，若有多个await函数，若其中一个内部有函数状态改变为 reject 时，接下来的函数将不再执行；async 函数的状态也将变更为reject。
-     
+
         例子1：
             async function asyncFn1 () {
                 return await Promise.resolve('hello async')
             }
             asyncFn1().then(res => console.log(res))
-     
+
         例子2：
             async function asyncFn2 () {
                 return await 123
             }
             asyncFn2().then(res => console.log(res))
-     
+
         例子3：
           	async function asyncFn3 () {
                 await Promise.reject('error')
@@ -402,18 +402,18 @@
                 res => {console.log(res)},
                 err => {console.log(err)}
             )
-     
+
         ```
-   
-   
-   
-      - await/async如何捕获错误
-   
+
+
+
+      - **await/async如何捕获错误**
+
         ```
         基本处理错误有两种方法：
         1.try...catch，await后面的Promise对象回调函数是reject时，JavaScript 会抛出一个可以被捕获的错误
         2.await someFn.then(v => [null, v], err => [err, null])，使用then()的第二个参数捕获错误；
-        
+
         例子1：
             async function run() {
                 try {
@@ -423,20 +423,20 @@
                 }
             }
             run();
-        
+
         例子2：
-        
+
             async function throwAnError() {
                 throw new Error("Oops!");
             }
             async function noError() {
                 return 42;
             }
-        
+
             async function run() {
                 // The `.then(v => [null, v], err => [err, null])` pattern
                 // 你可以使用数组解构来匹配err和返回值
-        
+
                 // 处理reject的数据
                 let [err1, res1] = await throwAnError().then(
                     v => [null, v],
@@ -446,16 +446,16 @@
                 if (err1 != null) {
                     err1.message; // 'Oops'
                 }
-        
+
                 // 处理resolve的数据
                 let [err2, res2] = await noError().then(v => [null, v], err => [err, null]);
                 console.log(err2, res2) // null,4
             }
             run()
-        
+
          总结：第一种会遇到多个await函数，使用多个try...catch;这种代码并不简洁；
          	  第二种每一个地方都少不了if (err != null) ，代码极度重复，而且容易漏掉；
-        
+
          解决方案：抽离一个公共方法，await-to-js 优雅写法
          例子3：
           /* 方法抽取 */
@@ -464,15 +464,15 @@
             if (err != null) { err.message; }
             return [err, res]
           };
-        
+
           async function throwAnError() {
             throw new Error("Oops!");
           };
-        
+
           async function noError() {
             return 42;
           }
-        
+
           async function run() {
             // The `.then(v => [null, v], err => [err, null])` pattern
             // 你可以使用数组解构来匹配err和返回值
@@ -483,31 +483,31 @@
           }
           run()
         ```
-   
+
       - **async /await/Promise的执行顺序**
-   
+
         ```
             在工作中 async 的应用情况更加多种，因为其看似同步的处理异步操作，解决了不断回调的问题，增加了代码的可阅读性。 async 虽然看似同步操作，但是它式非阻塞的，接下来将 async、 Promise 和 setTimeout 结合，查看一下它的执行顺序；
-        
+
         例子1:
             async function asyncFn1 () {
                 console.log('asyncFn1 start')
                 await asyncFn2()
                 console.log('async1 end')
             }
-        
+
             async function asyncFn2 () {
                 console.log('asyncFn2')
             }
-        
+
             console.log('script start')
-        
+
             setTimeout(function () {
                 console.log('setTimeout')
             }, 0)
-        
+
             asyncFn1()
-        
+
             new Promise((resolve) => {
                 console.log('Promise')
                 resolve()
@@ -515,7 +515,7 @@
                 console.log('Promise.then')
             })
             console.log('script end')
-        
+
          最终在控制台中的打印结果为：
             script start
             asyncFn1 start
@@ -525,24 +525,24 @@
             Promise.then
             async1 end
             setTimeout
-        
+
         注意： Promise.then优先级应该要高于setTimeout，个人理解为Promise为微任务优先于宏任务
         ```
-   
-   
-   
-      - promise的实现原理
-   
+
+      - **promise的实现原理**
+
         [参考：promise的实现原理](https://github.com/wangjiahui11/blog/issues/3)
-   
-        参考文章：
-   
+
+
+
+        其他参考文章：
+
         [如何优雅地处理 Async / Await 的异常？](https://juejin.cn/post/6844903895748050958#heading-2)
-   
+
         [event loop一篇文章足矣](https://www.jianshu.com/p/de7aba994523)
-   
+
         [理解Async和Await](https://juejin.cn/post/6844903773911908359#heading-1)
-   
+
 4. ###### Iterator和for ... of 循环
 
    - **Iterator**
@@ -560,7 +560,7 @@
          TypedArray
          函数的 arguments 对象
          NodeList 对象
-     
+
      ```
 
    - **for ... of 循环**
@@ -580,7 +580,7 @@
          for (var e of engines) {  // Gecko  Trident Webkit
            console.log(e);
          }
-         
+
          var es6 = new Map();
      	es6.set("edition", 6);
      	es6.set("committee", "TC39");
@@ -600,29 +600,27 @@
            standard: "ECMA-262"
          };
          for (let [key.value] of Object.entries(es6)) {
-           console.log([key.value]); 
+           console.log([key.value]);
            // ["edition", 6] ["committee", "TC39"]  	["standard", "ECMA-262"]
          }
      ```
 
-     
+
 
 5. ###### Generator函数
 
-   - 基本概念
+   - **基本概念**
 
      ```
      	Generator 函数是 ES6 提供的一种异步编程解决方案，
      	语法上：是一个状态机，封装了多个内部状态。执行 Generator 函数会返回一个遍历器对象
      	形式上：Generator 一个普通函数，有两个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式。
-     	
-     
-     
+
+
+
      ```
 
-     
-
-   - 基本用法
+   - **基本用法**
 
      ```
      	由于 Generator 函数返回的遍历器对象，只有调用next方法才会遍历下一个内部状态，所以其实提供了一种可以暂停执行的函数。yield表达式就是暂停标志。
@@ -631,22 +629,22 @@
            yield 2
            return 3
          }
-     
+
          const g = gen()   // Iterator对象
          g.next() // {value: 1, done: false}
          g.next() // {value: 2, done: false}
          g.next() // {value: 3, done: true}
      ```
 
-     
 
-   - next的参数
+
+   - **next的参数**
 
      ```
      yield表达式本身没有返回值，或者说总是返回undefined。
          function *gen () {
            var x = yield 'hello world'
-           var y = x / 2  
+           var y = x / 2
            return [x, y]
          }
      第一种情况：无参数// yield 返回值为undefined
@@ -654,14 +652,14 @@
          g.next()    // {value: 'hello world', done: false}
          g.next()    // {value: [undefined, NaN], done: true}
       	备注：var x = yield 'hello world' 返回值为undefined， y:NAN
-       
+
      第二种情况：next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
          const g = gen()
          g.next()    // {value: 'hello world', done: false}
          g.next(10)    // {value: [10, 5], done: true}
      ```
 
-   - **for...of** 
+   - **for...of**
 
      ```
      	for...of循环可以自动遍历 Generator 函数运行时生成的Iterator对象，且此时不再需要调用next方法。
@@ -673,7 +671,7 @@
        yield 5;
        return 6;
      }
-     
+
      for (let v of foo()) {
        console.log(v);
      }
@@ -696,8 +694,6 @@
      }
      ```
 
-     
-
    - **this问题**
 
      ```
@@ -706,8 +702,8 @@
            this.a = 1
          }
          const f = new F()  // 1.创建f实例，2、this指向这个实例。3、原型赋予这个实例对象。
-         
-     例子2：	
+
+     例子2：
          function *Gen () {
            yield this.a = 1
          }
@@ -717,10 +713,10 @@
          const g = new Gen()
          g.a      // undefined
          g.say()  // 'keith'
-         
+
      	原因：调用Generator函数会返回遍历器对象，而不是实例对象，因此无法获取到this指向的实例对象上的私有属性和方法。
      	解决方法：这个遍历器对象可以继承Generator函数的prototype原型对象上的属性和方法(公有属性和方法)。
-     
+
      ```
 
    - Generator异步的实例应用
@@ -753,15 +749,15 @@
        fs.readFile(fileB, 'utf-8', function (err, data) {
            fs.readFile(fileC, 'utf-8', function (err, data) {
              fs.readFile(fileD, 'utf-8', function (err, data) {
-     
+
              });
            });
        });
      });
-     
+
      Promsie的解决方案：
          var readFile = require('fs-readfile-promise');
-     
+
          readFile(fileA).then(function (data) {
             console.log(data.toString());
             return readFile(fileB);
@@ -772,7 +768,7 @@
            console.log(data.toString());
            return readFile(fileD);
          })
-     
+
      ```
 
    - **Generator函数**
@@ -797,21 +793,21 @@
            var y = yield x + 2;
            return y;
          }
-     
+
          var g = gen(1);
          g.next() // { value: 3, done: false }
          g.next() // { value: undefined, done: true }
-         
+
      例子二：Generator 函数的数据交换
          function* gen(x){
            var y = yield x + 2;
            return y;
          }
-     
+
          var g = gen(1);
          g.next() // { value: 3, done: false }
          g.next(2) // { value: 2, done: true } // 参数2，作为上个阶段异步任务的返回结果；
-         
+
      例子三：Generator 函数的处理错误
          function* gen(x){
            try {
@@ -821,18 +817,18 @@
            }
            return y;
          }
-     
+
          var g = gen(1);
          g.next();
          g.throw('出错了'); // 出错了
-     
+
      ```
 
-   - **Thunk** 
+   - **Thunk**
 
      ```
      Thunk 函数是自动执行 Generator 函数的一种方法。
-     
+
      传值调用
          f(x + 5)
          // 传值调用时，等同于
@@ -841,19 +837,19 @@
          f(x + 5)
          // 传名调用时，等同于
          (x + 5) * 2
-         
+
       Trunk函数的目的：针对传名调用来的；
       	编译器的“传名调用”实现，往往是将参数放到一个临时函数之中，再将这个临时函数传入函数体。这个临时函数就叫做 Thunk 函数。
       	function f(m) {
            return m * 2;
          }
          f(x + 5);
-         
+
          // 等同于
          var thunk = function () {
            return x + 5;
          };
-     
+
          function f(thunk) {
            return thunk() * 2;
          }
@@ -870,16 +866,16 @@
            console.log(f2.toString());
          };
          var co = require('co');
-     
+
          co(gen).then(function (){
            console.log('Generator 函数执行完成');
          });
      co函数返回一个Promise对象，因此可以用then方法添加回调函数。 也就是说不用调用next的方法；
      ```
 
-6. ###### Class
+6. **Class**
 
-   - 简介
+   - **简介**
 
      ```
      生成实例对象的传统方法是通过构造函数
@@ -891,7 +887,7 @@
            return '(' + this.x + ', ' + this.y + ')';
          };
          var p = new Point(1, 2);
-         
+
      es6的class可以理解成一种语法糖，目的让对象原型写法更加清晰；
          class Point {
          // 对相应这es5的point构造函数
@@ -904,10 +900,10 @@
              return '(' + this.x + ', ' + this.y + ')';
            }
          }
-     
+
      ```
 
-   - 静态方法
+   - **静态方法**
 
      ```
      通常类中定义的方法，都会被实例继承 如果加static关键字，就表示该方法不会被实例继承，而是直接通过类来调用
@@ -922,7 +918,7 @@
      // TypeError: foo.classMethod is not a function
      ```
 
-   - 实例属性新写法
+   - **实例属性新写法**
 
      ```
      义在类的最顶层。
@@ -939,9 +935,9 @@
      }
      ```
 
-     
 
-   - 静态属性
+
+   - **静态属性**
 
      ```
      静态属性指的是 Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性。
@@ -950,7 +946,7 @@
            // ...
          }
          Foo.prop = 1;
-     
+
          // 新写法
          class Foo {
            static prop = 1;
@@ -959,7 +955,7 @@
 
    - **Class继承**
 
-     - 简介
+     - **简介**
 
        ```
        Class 可以通过extends关键字实现继承，
@@ -991,7 +987,7 @@
 
        ```
        	super关键字：既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。
-       
+
        	第一种情况，super作为函数调用时，代表父类的构造函数。
            class A {
              constructor() {
@@ -1015,7 +1011,7 @@
                console.log(this.x);
              }
            }
-       
+
            class B extends A {
              constructor() {
                super();
@@ -1025,12 +1021,12 @@
                super.print();
              }
            }
-       
+
            let b = new B();
            b.m() // 2
            注意：b.m() 相当于调用A.prototype.print,但这个this指的时当前的B的实例对象；
-       
-           
+
+
        ```
 
      - **类的 prototype 属性和proto属性**
@@ -1041,13 +1037,17 @@
        	（2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
        	class A {
            }
-       
+
            class B extends A {
            }
            B.__proto__ === A // true
            B.prototype.__proto__ === A.prototype // true
-       
+
        ```
+
+       整体关系图：
+
+       ![class-_proto_.png](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/class-_proto_.png?raw=true)
 
      - **实例的`__proto__`方法**
 
@@ -1055,23 +1055,88 @@
        	子类实例的__proto__的__proto__指向父类的__proto__。也就说子类实例的原型的原型指向父类实例的原型
        	class A {
            }
-       
+
            class B extends A {
            }
-       
+
            const a = new A();
            const b = new B();
        	a.__proto__=A.prototype // TRUE
        	b.__proto__=B.prototype  // TRUE
            b.__proto__.__proto__ ===B.prototype.__proto__===A.prototype=== a.__proto__  // true
-       
+
        ```
 
 7. **Module 语法**
 
+   - **简介**
+
+     ```
+     ES6 之前 javascript 一直没有属于自己的模块规范，所以社区制定了 CommonJs规范， Node 从 Commonjs 规范中借鉴了思想于是有了 Node 的 module，而 AMD 异步模块 也同样脱胎于 Commonjs 规范，之后有了运行在浏览器上的 require.js
+     ```
+
+   - **export 和 import**
+
+     ```
+     	01.export命令用于规定模块的对外接口，一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必须使用export关键字输出该变量。
+     	02.import命令加载这个模块。
+
+     	export 语法：
+             // 写法一
+             export var m = 1;
+             // 写法二
+             var m = 1;
+             export {m};
+
+             import { m }
+             // 写法三
+             var n = 1;
+             export {n as m};a
+
+         import 语法：
+             import {m}
+             import {m as n}
 
 
+         export default 语法： -- 目的:import时候不需要知道加载的的变量或者函数名称
+             // 默认输出
+             let add = 'add'
+             export default add { // 输出 }
+             等同于
+             export { add as default} { // 输出 }
+
+             import add from 'crc32'; // 输入
+             等同于
+             import {default as add} from 'crc32'; // 输入
+
+     	export 与 import 的复合写法
+     		如果在一个模块之中，先输入后输出同一个模块，import语句可以与export语句写在一起。
+             简写：
+             export { foo, bar } from 'my_module';
+             // 可以简单理解为
+             import { foo, bar } from 'my_module';
+             export { foo, bar };
+
+          整体导入：
+          	除了加载某个输入值，还可以使用整体加载，即用星号（*）指定一个对象，所有输出值都加载在这个对象上面。
+              // 混合导出 module.js
+              let a = 1
+              export { a }
+              const b = 2
+              export { b }
+              export let c = 3
+              export default [1, 2, 3]
+
+             // 混合导入 main.js
+             import defaultExport, { a, b, c as newC} from 'module'; //defaultExport: [1, 2, 3]  a: 1  b: 2  newC: 3
+             import defaultExport, * as name from 'module'; //defaultExport: [1, 2, 3]  name: { a: 1, b: 2, c: 3 }
+             import * as name from 'module'; // name: { a: 1, b: 2, c: 3, default: [1, 2, 3] }
 
 
+     ```
 
+   - **moduel加载的实现**
 
+     - [ ] 参考：https://juejin.cn/post/6844903810775678989#heading-12
+
+8.

@@ -13,21 +13,21 @@
   })
   ```
 
-  
+
 
 2. ##### 常量及公共方法的定义
 
   ```
   // 判断变量否为function
   const isFunction = variable => typeof variable === 'function'
-  
+
   // 定义promise的三种状态
   const PENDING = 'PENDING'
   const FULFILLED = 'FULFILLED'
   const REJECTED = 'REJECTED'
   ```
 
-  
+
 
 3. ##### promise的类创建
 
@@ -80,7 +80,7 @@
   - **实现同步的then，catch方法并支持链式编程**
 
     ```
-      class MyPromise { 
+      class MyPromise {
       	...
         // 添加then方法
         then(onFulfilled, onRejected) {
@@ -89,7 +89,7 @@
           return new MyPromise((onFulfilledNext, onRejectedNext) => {
             switch (_status) {
               case FULFILLED:
-                let res = onFulfilled(_value); 
+                let res = onFulfilled(_value);
                 onFulfilledNext(res)  // 相当于执行下一个Promise的_resolve方法是
                 break
               case REJECTED:
@@ -103,12 +103,12 @@
         catch(onRejected) {
           return this.then(undefined, onRejected)
         }
-    }	
+    }
     ```
 
     **这样就实现了最基本的Promise。具体代码参考：index1.html**
 
-    
+
 
 4. **Promise异步功能的支持**
 
@@ -131,7 +131,7 @@
       this._rejectedQueues = []
       // 执行handle
       try {
-        handle(this._resolve.bind(this), this._reject.bind(this)) 
+        handle(this._resolve.bind(this), this._reject.bind(this))
       } catch (err) {
         this._reject(err)
       }
@@ -164,7 +164,7 @@
             onRejectedNext(err)
           }
         }
-    
+
         switch (_status) {
           // 当状态为pending时，将then方法回调函数加入执行队列等待执行
           case PENDING:
@@ -184,7 +184,7 @@
 
     **这样就实现了支持异步的的Promise。具体代码参考：index2.html**
 
-    
+
 
 5. #####  参数的类型判断
 
@@ -206,11 +206,11 @@
     p2.then(res => {
       console.log(res) //这里返回一个普通值
     }, err => {
-      console.log(err) 
+      console.log(err)
     })
     ```
 
-     
+
 
     b.若x返回值若为Promise对象，就会等待该 Promise 对象(即 x )的状态发生变化，才会被调用，并且新的 Promise 状态和 x 的状态相同.如下
 
@@ -229,7 +229,7 @@
     })
     ```
 
-    
+
 
   - **如果 onFulfilled 或者onRejected 抛出一个异常 e ，则 p2 必须变为失败（Rejected），并返回失败的值 e.**
 
@@ -247,7 +247,7 @@
       })  //这里抛出一个异常e
     ```
 
-    
+
 
   - **如果 onFulfilled 不是函数且 p1 状态为成功（Fulfilled）， p2 必须变为成功（Fulfilled并返回p1成功的值.**
 
@@ -262,7 +262,7 @@
       )  //success
     ```
 
-    
+
 
   - **如果 onRejected 不是函数且 p1 状态为失败（Rejected），p2必须变为失败（Rejected） 并返回 p1 失败的值.**
 
@@ -331,7 +331,7 @@
   const p1 = new Promise(function (resolve, reject) {
     // ...
   });
-  
+
   const p2 = new Promise(function (resolve, reject) {
     // ...
     resolve(p1);
@@ -388,7 +388,7 @@
 
   **Promise就基本实现了，参考：index3.html**
 
-  
+
 
 6. **Promise的其它的方法**
 
@@ -403,7 +403,7 @@
     }
     ```
 
-    
+
 
   - **静态 `resolve` 方法**
 
@@ -414,10 +414,10 @@
       if (value instanceof MyPromise) return value
       return new MyPromise(resolve => resolve(value))
     }
-    
+
     ```
 
-    
+
 
   - **静态 `reject` 方法**
 
@@ -426,10 +426,10 @@
     static reject (value) {
       return new MyPromise((resolve ,reject) => reject(value))
     }
-    
+
     ```
 
-    
+
 
   - **静态 `all` 方法**
 
@@ -456,10 +456,10 @@
         }
       })
     }
-    
+
     ```
 
-    
+
 
   - **静态 `race` 方法**
 
@@ -477,10 +477,10 @@
         }
       })
     }
-    
+
     ```
 
-    
+
 
   - **`finally` 方法**
 
@@ -502,9 +502,6 @@
     }
     ```
 
-    
+
 
     **这样一个完整的 `Promsie` 就实现了， 具体参考：index.html**
-
-  
-  

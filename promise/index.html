@@ -215,13 +215,9 @@
     pAll1.then(
       res => { console.log(res) },
       err => { console.log(err) }
-    ).finally(res => { console.log('end') } )
+    ).finally(res => { console.log('end') })
     let pRace = MyPromise.race([p1, p2, p3])
     pRace.then(res => { console.log(res) })
-    // p2.then(
-    //   res => { console.log(res, 'success2'); },
-    //   err => { console.log(err, 'fail'); }
-    // )
   </script>
 </head>
 

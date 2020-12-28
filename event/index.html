@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="event.js"></script>
+</head>
+
+<body>
+  <button id="count">点将我</button>
+  <div id="showcount"></div>
+</body>
+<script>
+    var count = 0;
+    var button = document.getElementById("count");
+    var div = document.getElementById("showcount");
+    button.onclick = function () {
+      Event.trigger("add", count++);
+    }
+    Event.listen('add', function (count) {
+      div.innerHTML = count;
+    });
+</script>
+
+</html>

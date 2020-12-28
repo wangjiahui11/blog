@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布者订阅者模式--添加取消订阅的功能</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  var Event = (function () {
+    var list = {}, listen, trigger, remove;
+    listen = function (key, fn) {
+      if (!list[key]) {
+        list[key] = [];
+      }
+      list[key].push(fn);
+    };
+    trigger = function () {
+      var key = Array.prototype.shift.call(arguments),
+        fns = list[key];
+      if (!fns || fns.length === 0) {
+        return false;
+      }
+      for (var i = 0, fn; fn = fns[i++];) {
+        fn.apply(this, arguments);
+      }
+    };
+    remove = function (key, fn) {
+      console.log('remove被触发了')
+      var fns = list[key];
+      if (!fns) {
+        return false;
+      }
+      if (!fn) {
+        fns && (fns.length = 0);
+      } else {
+        for (var i = fns.length - 1; i >= 0; i--) {
+          var _fn = fns[i];
+          if (_fn === fn) {
+            fns.splice(i, 1);
+          }
+        }
+      }
+    };
+    return {
+      listen: listen,
+      trigger: trigger,
+      remove: remove
+    }
+  })();
+  function fn1(size) {
+    console.log("尺码为:" + size); // 打印出尺码为42
+  }
+  function fn2(size) {
+    console.log("再次尺码为:" + size); // 打印出尺码为42
+  }
+
+  // 测试代码如下：
+  Event.listen("color", fn1);
+  Event.listen("color", fn2);
+  Event.trigger("color", 42);
+  Event.remove("color", fn2);
+  Event.trigger("color", 42);
+
+// 输出
+// 尺码为:42
+// 再次尺码为:42
+// 尺码为:42
+</script>

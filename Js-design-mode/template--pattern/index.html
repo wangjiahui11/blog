@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模板方法</title>
+</head>
+
+<body>
+  <script>
+    var CaffeineBeverage = function () { };
+    CaffeineBeverage.prototype.prepareRecipe = function () {
+      this.boilWater();
+      this.brew();
+      this.pourOnCup();
+      if (this.customerWantsCondiments()) {
+        // 如果可以想加小料，就加上
+        this.addCondiments();
+      }
+    };
+    CaffeineBeverage.prototype.boilWater = function () {
+      console.log("将水烧开!");
+    };
+    CaffeineBeverage.prototype.pourOnCup = function () {
+      console.log("将饮料到再杯子里!");
+    };
+    CaffeineBeverage.prototype.brew = function () {
+      console.log("泡茶或者泡饮料!");
+    };
+    CaffeineBeverage.prototype.addCondiments = function () {
+      console.log("添加其他小料!");
+    };
+    // 默认加上小料
+    CaffeineBeverage.prototype.customerWantsCondiments = function () {
+      return true;
+    };
+
+    var Coffee = function () {
+      CaffeineBeverage.apply(this);  // 继承父类的属性和方法
+    };
+    Coffee.prototype = new CaffeineBeverage();
+    Coffee.prototype.brew = function () {
+      console.log("从咖啡机想咖啡倒进去!");
+    };
+    //创建coffee的子类
+    var c1 = new Coffee()
+    console.log(c1)
+    c1.prepareRecipe()
+
+    //冲茶叶
+    var Tea = function () {
+      CaffeineBeverage.apply(this); // 继承父类的属性和方法
+    };
+    Tea.prototype = new CaffeineBeverage();
+    Tea.prototype.brew = function () {
+      console.log("泡茶叶!");
+    };
+    Tea.prototype.addCondiments = function () {
+      console.log("添加柠檬!");
+    };
+    Tea.prototype.customerWantsCondiments = function () {
+      return console.log("你想添加柠檬嘛？");
+    };
+    //创建Tea的子类
+    var t1 = new Tea()
+    console.log(t1)
+    t1.prepareRecipe()
+  </script>
+</body>
+
+</html>

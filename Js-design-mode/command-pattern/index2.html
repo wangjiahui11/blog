@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宏命令模式</title>
+</head>
+
+<body>
+  <script>
+    var command1 = {
+      execute() {
+        console.log(1);
+      }
+    };
+    var command2 = {
+      execute() {
+        console.log(2);
+      }
+    };
+    var command3 = {
+      execute() {
+        console.log(3);
+      }
+    };
+    // 定义宏命令，command.add方法把子命令添加进宏命令对象，
+    // 当调用宏命令对象的execute方法时，会迭代这一组命令对象，
+    // 并且依次执行他们的execute方法。
+    var command = function () {
+      return {
+        commandsList: [],
+        add: function (command) {
+          this.commandsList.push(command);
+        },
+        execute: function () {
+          for (var i = 0; i < this.commandsList.length; i += 1) {
+            this.commandsList[i].execute();
+          }
+        }
+      }
+    };
+    // 初始化宏命令
+    var c = command();
+    c.add(command1);
+    c.add(command2);
+    c.add(command3);
+    c.execute();  // 1,2,3
+  </script>
+</body>
+
+</html>

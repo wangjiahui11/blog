@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回调函数命令模式</title>
+</head>
+
+<body>
+  <button id="button1">刷新菜单目录</button>
+  <button id="button2">增加子菜单</button>
+  <script>
+    var b1 = document.getElementById("button1"),
+      b2 = document.getElementById("button2");
+
+    // 定义setCommand 函数，该函数负责往按钮上面安装命令。点击按钮后会执行回调方法。
+    var setCommand = function (button, fn) {
+      button.onclick = function () {
+        fn();
+      }
+    };
+    // 下面我们自己来定义各个对象来完成自己的业务操作
+    var Menu = {
+      refersh: function () {
+        alert("刷新菜单目录");
+      },
+      add: function () {
+        alert("增加子菜单");
+      }
+    };
+
+    // 下面是编写命令类
+    var RefreshMenuBarCommand = function (receiver) {
+      return function () {
+        receiver.refersh();
+      }
+    };
+
+    // 增加命令操作
+    var AddSubMenuCommand = function (receiver) {
+      return function () {
+        receiver.add();
+      }
+    };
+    // 最后把命令接收者传入到command对象中，并且把command对象安装到button上面
+    var refershBtn = new RefreshMenuBarCommand(Menu);
+    var addBtn = new AddSubMenuCommand(Menu);
+
+    setCommand(b1, refershBtn);
+    setCommand(b2, addBtn);
+  </script>
+</body>
+
+</html>

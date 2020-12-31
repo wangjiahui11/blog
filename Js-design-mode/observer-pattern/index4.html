@@ -22,7 +22,6 @@
       // 订阅的消息添加到缓存列表中
       this.list[key].push(fn);
     },
-
     trigger: function () {
       var key = Array.prototype.shift.call(arguments);
       var fns = this.list[key];
@@ -33,24 +32,6 @@
       for (var i = 0, fn; fn = fns[i++];) {
         fn.apply(this, arguments);
       }
-    },
-    remove: function (key, fn) {
-      var fns = this.list[key];
-      // 如果key对应的消息没有订阅过的话，则返回
-      if (!fns) {
-        return false;
-      }
-      // 如果没有传入具体的回调函数，表示需要取消key对应消息的所有订阅
-      if (!fn) {
-        fn && (fns.length = 0);
-      } else {
-        for (var i = fns.length - 1; i >= 0; i--) {
-          var _fn = fns[i];
-          if (_fn === fn) {
-            fns.splice(i, 1); // 删除订阅者的回调函数
-          }
-        }
-      }
     }
   };
 
@@ -59,22 +40,18 @@
       obj[i] = event[i];
     }
   };
-
- var shoeObj = {};
+  var shoeObj = {};
   initEvent(shoeObj);
+
   // 小红订阅如下消息
-  shoeObj.listen('red', fn1 = function (size) {
+  shoeObj.listen('red', function (size) {
     console.log("尺码是：" + size);
   });
 
   // 小花订阅如下消息
-  shoeObj.listen('red', fn2 = function (size) {
+  shoeObj.listen('block', function (size) {
     console.log("再次打印尺码是：" + size);
   });
-
-  shoeObj.remove("red", fn1);
-  shoeObj.trigger("red", 42);
-
-// 输出：
-// 再次打印尺码是：42
+  shoeObj.trigger("red", 40);
+  shoeObj.trigger("block", 42);
 </script>

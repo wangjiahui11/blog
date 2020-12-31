@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>发布者订阅者模式1</title>
+  <title>发布者订阅者模式-最基础版</title>
 </head>
 <body>
 
@@ -20,7 +20,6 @@
 
   // 发布消息
   shoeObj.trigger = function () {
-    console.log(this)
     for (var i = 0, fn; fn = this.list[i]; i++) {
       fn.apply(this, arguments);
     }

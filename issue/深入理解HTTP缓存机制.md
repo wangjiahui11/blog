@@ -23,7 +23,7 @@
 
 ​		浏览器与服务器通信的方式为应答模式，即是：浏览器发起HTTP请求 – 服务器响应该请求。那么浏览器第一次向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中，简单的过程如下图：
 
-![第一次发送http请求缓存过程](E:\wangjh\web资料\learn\blog\图片及截图\第一次发送http请求缓存过程.png)
+![图片](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%83%85%E5%86%B5.png?raw=true)
 
 由上图我们可以知道：
 
@@ -46,7 +46,7 @@
 
 1. 不存在该缓存结果和缓存标识，强制缓存失效，则向服务器发起请求（跟第一次发起请求一致），如下图：
 
-   ![强制缓存第一种情况](E:\wangjh\web资料\learn\blog\图片及截图\强制缓存第一种情况.png)
+   ![图片](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%83%85%E5%86%B5.png?raw=true)
 
 2. 存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存，如下图
 

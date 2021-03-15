@@ -37,3 +37,16 @@
 [从一道面试题简单谈谈发布订阅和观察者模式](https://segmentfault.com/a/1190000021272622)
 
 [既然React/Vue可以用Event Bus进行组件通信,你可以实现下吗?](https://juejin.cn/post/6844903587043082247)
+
+
+
+#### 03.Pomise的实现原理
+
+> 核心：链式编程，及返回值的判断，异步promise的功能
+
+**参考：**
+
+[Promise实现原理（附源码）](https://juejin.cn/post/6844903665686282253)
+
+[解读Promise内部实现原理](https://juejin.cn/post/6844903521284784142)
+

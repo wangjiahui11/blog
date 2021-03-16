@@ -40,7 +40,7 @@
 
 
 
-#### 03.Pomise的实现原理
+#### 04.Pomise的实现原理
 
 > 核心：链式编程，及返回值的判断，异步promise的功能
 
@@ -50,3 +50,16 @@
 
 [解读Promise内部实现原理](https://juejin.cn/post/6844903521284784142)
 
+
+
+#### 05.继承八种方案
+
+> 核心：原型链，es6 Class   call方法
+
+**参考：**
+
+[javaScript常用八种继承方案](https://juejin.cn/post/6844903696111763470#heading-6)
+
+[MDN之Object.create()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+
+[MDN之Class](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)

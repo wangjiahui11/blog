@@ -63,3 +63,16 @@
 [MDN之Object.create()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
 
 [MDN之Class](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)
+
+
+
+#### 06.new,call,apply,blind模拟
+
+> 核心：Function.prototype 构造函数的方法
+
+**参考：**
+
+[this、apply、call、bind](https://juejin.cn/post/6844903496253177863#heading-14)
+
+[apply、call、bind实现](https://juejin.cn/post/6844904136161361933#heading-41)
+

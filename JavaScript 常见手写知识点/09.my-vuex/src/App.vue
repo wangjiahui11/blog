@@ -9,20 +9,20 @@
 export default {
   computed: {
     getState() {
-      console.log(this.$store);
-      return this.$store.getters.getText;
+      return this.$store.getters.getA;
     }
   },
   mounted() {
     setTimeout(() => {
       // this.$store.state.text  = 'will'
       // 修改store的操作;
-      this.$store.commit('syncSetText','will')
+
+      this.$store.commit('syncSetA','will')
     }, 2000);
   },
   methods: {
     clickMe() {
-      this.$store.dispatch("asyncSetText", "异步更改数据");
+      this.$store.dispatch("asyncSetState", "异步更改数据");
     }
   }
 };

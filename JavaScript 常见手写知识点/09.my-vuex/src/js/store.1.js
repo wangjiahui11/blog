@@ -2,9 +2,7 @@
 import Vue from "vue"
 import Vuex from "./my-vuex.js"
 Vue.use(Vuex)
-import moduleA from './modules/moduleA.js'
-import moduleB from './modules/moduleB.js'
-console.log(moduleA, moduleB);
+
 const store = new Vuex.Store({
     state: {
         text: "Hello Vuex"
@@ -26,9 +24,7 @@ const store = new Vuex.Store({
             }, 1000)
         }
     },
-    modules: {
-        moduleA, moduleB
-    },
+    modules: {}
 })
 
 export default store

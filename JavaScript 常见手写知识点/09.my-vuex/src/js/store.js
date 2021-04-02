@@ -4,10 +4,10 @@ import Vuex from "./my-vuex.js"
 Vue.use(Vuex)
 import moduleA from './modules/moduleA.js'
 import moduleB from './modules/moduleB.js'
-console.log(moduleA, moduleB);
 const store = new Vuex.Store({
     state: {
-        text: "Hello Vuex"
+        text: "Hello Vuex",
+        name:'hello-vue-map函数'
     },
     getters: {
         getText(state) {

@@ -278,6 +278,7 @@
     - Promise
     - process.nextTick
     - MutationObserver
+    
   **主要部分：** 事件队列在同步队列执行完后，首先会执行nextTick，等nextTick执行完成后，然后会先执行**micro task**， 等**micro task**队列空了之后，才会去执行**macro  task**，如果中间添加了**micro task**加入了**micro task**队列，会继续去执行**micro task**队列，然后再回到**macro  task**队列。js引擎存在**monitoring process进程**， 会不停的监听`task queue`（事件队列）
 
   ![maco和mico task](E:\wangjh\web资料\learn\blog\图片及截图\maco和mico task.png)

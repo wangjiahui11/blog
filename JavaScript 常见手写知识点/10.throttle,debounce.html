@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>防抖和节流</title>
+</head>
+
+<body>
+    <div>
+        <label for="debounce">防抖:</label>
+        <input id="debounce" type="text" name='debounce'>
+    </div>
+    <br/>
+
+    <div>
+        <label for="throttle">节流:</label>
+        <input id="throttle" type="text" name='throttle'>
+    </div>
+</body>
+
+</html>
+<script>
+    let eld = document.getElementById('debounce')
+    let elt = document.getElementById('throttle')
+    function ajax(...args) {
+        let [text,...arg]=args
+        console.log(`模拟ajax请求---${text}参数是:`,...arg);
+    }
+
+    /** 
+     * 防抖定义:在单位时间time内多次触发只执行最后一次的操作 
+     * 运用场景：1.表单按钮提交时，防止多次提交按钮，只执行最后提交的一次；
+     *          2.服务端验证场景, 联想搜词；
+     **/
+
+    function debounce(fn, time = 500) {
+        let timmer = null
+        return (...args) => {
+            clearTimeout(timmer)
+            timmer = setTimeout(function () {
+                fn.apply(this, args)
+            }, time)
+        }
+    }
+    let b1 = debounce(ajax, 1000)
+    eld.addEventListener('keyup', function (e) {
+        b1('防抖',e.target.value)
+    })
+
+
+    /** 
+   * 节流定义:规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
+   * 运用场景：1.拖拽场景：固定时间内只执行一次，防止超高频次触发位置变动
+   *          2.缩放场景：监控浏览器resize
+   *          3.动画场景：避免短时间内多次触发动画引起性能问题
+   **/
+
+    function throttle(fn, time = 500) {
+        let flag = true
+        return (...args) => {
+            if(!flag) return
+            flag = false
+            timmer = setTimeout(function () {
+                fn.apply(this, args)
+                flag = true
+            }, time)
+        }
+    }
+    let t1 = throttle(ajax, 1000)
+    elt.addEventListener('keyup', function (e) {
+        t1('节流',e.target.value)
+    })
+
+</script>

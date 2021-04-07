@@ -950,5 +950,21 @@ export const mapActions = actionsList => {
 // 省略部分代码
 ```
 
+#### 参考资料：
 
+> [Build a Vuex Module](https://serversideup.net/build-vuex-module/)
+>
+> [从0到1手写一个vuex](https://juejin.cn/post/6844904066246508551#heading-14)
+>
+> [从0开始写一个自己的Vuex](https://segmentfault.com/a/1190000010888395)
+>
+> [vuex 源码：如何实现一个简单的 vuex](https://juejin.im/post/5a7a935851882524713dcd05)
+>
+> [Vue 源码（三） —— Vuex](https://zhuanlan.zhihu.com/p/48516116)
+>
+> [浅谈Vue.use](https://segmentfault.com/a/1190000012296163)
+>
+> [Vuex官方文档](https://vuex.vuejs.org/zh/guide/)
+>
+> [vuex Github仓库](https://github.com/vuejs/vuex)
 

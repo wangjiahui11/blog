@@ -1,6 +1,6 @@
-# webpack5 的使用（一）：起步
+# wetback 的使用（一）：起步
 
-### 基本安装
+### 1.基本安装
 
 首先我们创建一个目录，初始化 npm，然后 [在本地安装 webpack](https://webpack.docschina.org/guides/installation#local-installation)，接着安装 [`webpack-cli`](https://github.com/webpack/webpack-cli)（此工具用于在命令行中运行 webpack）：
 
@@ -11,7 +11,7 @@ npm init -y
 npm install webpack webpack-cli --save-dev
 ```
 
-### 基本配置
+### 2.基本配置
 
 **project**项目目录及文件内容
 
@@ -28,7 +28,8 @@ npm install webpack webpack-cli --save-dev
 **src/index.js**
 
 ```diff
-console.log('这是一个入口文件')
+import _ from 'lodash';
+
 function component() {
   const element = document.createElement('div');
 
@@ -37,6 +38,12 @@ function component() {
   return element;
 }
 document.body.appendChild(component());
+```
+
+**安装 `lodash` 来处理 数组**
+
+```bash
+npm install --save lodash 
 ```
 
 **index.html**
@@ -77,3 +84,98 @@ const path = require('path') module.exports = { entry: './src/index.js', output:
 ```
 
 **运行命令 npm run build，我们可以发现根目录多了一个 dist 目录，里面有一个 main.js 文件**
+
+### 3.资源的管理（images/css/sass预编译器等）
+
+**loader** 让 webpack 能够去处理其他类型的文件，并将它们转换为有效 [模块](https://webpack.docschina.org/concepts/modules)，以供应用程序使用，以及被添加到依赖图中
+
+**安装 `css-loader` 来处理 CSS**
+
+```bash
+npm install --save-dev style-loader css-loader
+```
+
+**src/style.css**
+
+```css
+.hello {
+  color: red;
+  font-size: 24px;
+}
+```
+
+**src/index.js修改引入**
+
+```
+ import _ from 'lodash';
++import './style.css';
+
+ function component() {
+   const element = document.createElement('div');
+
+   // Lodash, now imported by this script
+   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
++  element.classList.add('hello');
+
+   return element;
+ }
+
+ document.body.appendChild(component());
+```
+
+**配置资源加载模块**
+
+```
+module.exports = {
+ ...
+  module: {
+    rules: [ // 转换规则
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ]
+  }
+  ...
+}
+
+```
+
+**加载 images 图像**
+
+在 webpack 5 中，可以使用内置的 [Asset Modules](https://webpack.docschina.org/guides/asset-modules/)，我们可以轻松地将这些内容混入我们的系统中：
+
+```
+module.exports = {
+ ...
+  module: {
+    rules: [ //
+      ...
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
+  }
+  ...
+}
+
+```
+
+**src/index.js**
+
+```diff
+ ...
+ import Icon from './icon.png';
+
+ function component() {
+ ...
+  // 将图像添加到我们已经存在的 div 中。
+  const myIcon = new Image();
+  myIcon.src = Icon;
+
+  element.appendChild(myIcon);
+  ...
+ }
+ ...
+```

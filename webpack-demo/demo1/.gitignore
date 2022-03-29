@@ -2,8 +2,6 @@
 
 # production
 /dist
-!/dist/index.html
-
 
 yarn.lock
 package-lock.json

@@ -11,6 +11,8 @@ npm init -y
 npm install webpack webpack-cli --save-dev
 ```
 
+
+
 ### 2.基本配置
 
 **project**项目目录及文件内容
@@ -85,7 +87,9 @@ const path = require('path') module.exports = { entry: './src/index.js', output:
 
 **运行命令 npm run build，我们可以发现根目录多了一个 dist 目录，里面有一个 main.js 文件**
 
-### 3.资源的管理（images/css/sass预编译器等）
+
+
+### 3.loader（加载images/css/sass预编译器等）
 
 **loader** 让 webpack 能够去处理其他类型的文件，并将它们转换为有效 [模块](https://webpack.docschina.org/concepts/modules)，以供应用程序使用，以及被添加到依赖图中
 
@@ -179,3 +183,103 @@ module.exports = {
  }
  ...
 ```
+
+**其他font，JSON 可参考：https://webpack.docschina.org/guides/asset-management**
+
+
+
+### 4.插件（plugin）
+
+**loader** 用于转换某些类型的模块，而**插件（plugin）**则可以用于执行范围更广的任务。包括：打包优化，资源管理，注入环境变量。
+
+首先安装插件，并且调整 `webpack.config.js` 文件：
+
+```bash
+npm install --save-dev html-webpack-plugin
+```
+
+如果你想要了解 `HtmlWebpackPlugin` 插件提供的全部的功能和选项，你就应该阅读 [`HtmlWebpackPlugin`](https://github.com/jantimon/html-webpack-plugin) 仓库中的源码
+
+**webpack.config.js**
+
+```diff
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: {
+    index: './src/index.js',
+    print: './src/print.js',
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true, //构建前清理 /dist 
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: '管理输出',
+    }),
+  ],
+  module: {
+    rules: [ // 转换规则
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
+  }
+}
+```
+
+**备注**：webpack4.x 自动清空打包目录 是使用插件 [clean-webpack-plugin](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fclean-webpack-plugin) 来实现
+
+**src/print.js**
+
+```js
+export default function printMe() {
+  console.log('I get called from print.js!');
+}
+```
+
+并且在 `src/index.js` 文件中使用这个函数：
+
+**src/index.js**
+
+```diff
+import _ from 'lodash';
+import './style.css';
+import Icon from './icon.png';
+import printMe from './print.js';
+
+function component() {
+  const element = document.createElement('div');
+  const btn = document.createElement('button');
+
+  // Lodash, now imported by this script
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  btn.innerHTML = 'Click me and check the console!';
+  btn.onclick = printMe;
+
+  element.appendChild(btn);
+
+  element.classList.add('hello');
+
+  // 将图像添加到我们已经存在的 div 中。
+  const myIcon = new Image();
+  myIcon.src = Icon;
+
+  element.appendChild(myIcon);
+
+  return element;
+}
+
+document.body.appendChild(component());
+
+```
+
+**插件（plugins）**的基本概念：https://webpack.docschina.org/concepts/#plugins

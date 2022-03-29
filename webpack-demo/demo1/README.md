@@ -283,3 +283,154 @@ document.body.appendChild(component());
 ```
 
 **插件（plugins）**的基本概念：https://webpack.docschina.org/concepts/#plugins
+
+### 5.开发环境
+
+**webpack 的 mode 提供三个值：none、development（开发模式）、production（生产模式，默认）。**
+
+为什么需要不同环境？不要问，问了就是不知道~
+
+本地开发和部署线上，肯定是有不同的需求
+
+**本地环境：**
+
+- 需要更快的构建速度
+- 需要打印 debug 信息
+- 需要 live reload 或 hot reload 功能
+- 需要 sourcemap 方便定位问题
+- ...
+
+**生产环境：**
+
+- 需要更小的包体积，代码压缩+tree-shaking
+- 需要进行代码分割
+- 需要压缩图片体积
+- 资源优化等
+- ...
+
+​	以上我们将 *生产环境* 和 *开发环境* 做了细微区分，但是，请注意，我们还是会遵循不重复原则(Don't repeat yourself - DRY)，保留一个 "common(通用)" 配置。为了将这些配置合并在一起，我们将使用一个名为 [`webpack-merge`](https://github.com/survivejs/webpack-merge) 的工具。此工具会引用 "common" 配置，因此我们不必再在环境特定(environment-specific)的配置中编写重复代码。
+
+首先安装插件，并且调整 `webpack.config.js` 文件：
+
+```
+npm install --save-dev webpack-merge
+```
+
+**project**
+
+```diff
+  webpack-demo
+  |- package.json
+  |- package-lock.json
+- |- webpack.config.js
++ |- webpack.common.js
++ |- webpack.dev.js
++ |- webpack.prod.js
+  |- /dist
+  |- /src
+    |- index.js
+    |- math.js
+  |- /node_modules
+```
+
+**webpack.common.js**
+
+```diff
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: {
+    index: './src/index.js',
+    print: './src/print.js',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Production',
+    }),
+  ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  module: {
+    rules: [ // 转换规则
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
+  }
+};
+```
+
+**webpack.dev.js**
+
+```diff
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    static: './dist',
+    compress: true,
+    port: 9000,
+  },
+});
+
+```
+
+**webpack.prod.js**
+
+```diff
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'production',
+});
+```
+
+`webpack.common.js`对应的使我们公共配置，
+
+在 `webpack.dev.js` 中，我们将 `mode` 设置为 `development`，并且为此环境添加了推荐的 `devtool`（强大的 source map）和 `devServer` 配置。
+
+`webpack.prod.js` 中，我们将 `mode` 设置为 `production`，其中会引入之前在 [tree shaking](https://webpack.docschina.org/guides/tree-shaking) 指南中介绍过的 `TerserPlugin`。
+
+具体参考：https://webpack.docschina.org/guides/production/
+
+### 使用 webpack-dev-server
+
+`webpack-dev-server` 为你提供了一个基本的 web server，并且具有 live reloading(实时重新加载) 功能。设置如下：
+
+```
+npm install --save-dev webpack-dev-server
+```
+
+关于`webpack-dev-server`其他更多配置，请查看 [配置文档](https://webpack.docschina.org/configuration/dev-server)。
+
+**package.json**
+
+```diff
+ {
+   ...
+   "scripts": {
+   	...
+	"start": "webpack serve --open --config webpack.dev.js",
+	 "build": "webpack --config webpack.prod.js"
+	 ...
+   },
+   ...
+ }
+```
+
+现在，在命令行中运行 `npm start`，
+
+webpack多个环境配置可参考：https://juejin.cn/post/6969480065025310727#heading-9

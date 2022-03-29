@@ -2,6 +2,7 @@ import _ from 'lodash';
 import './style.css';
 import Icon from './icon.png';
 import printMe from './print.js';
+console.log('环境变量-index-页面中：', process.env.NODE_ENV)
 
 function component() {
   const element = document.createElement('div');

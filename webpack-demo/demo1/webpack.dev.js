@@ -8,5 +8,6 @@ module.exports = merge(common, {
     static: './dist',
     compress: true,
     port: 9000,
+    hot: true,
   },
 });

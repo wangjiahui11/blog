@@ -284,6 +284,8 @@ document.body.appendChild(component());
 
 **插件（plugins）**的基本概念：https://webpack.docschina.org/concepts/#plugins
 
+
+
 ### 5.开发环境
 
 **webpack 的 mode 提供三个值：none、development（开发模式）、production（生产模式，默认）。**
@@ -406,7 +408,7 @@ module.exports = merge(common, {
 
 具体参考：https://webpack.docschina.org/guides/production/
 
-### 使用 webpack-dev-server
+**使用 webpack-dev-server启动项目**
 
 `webpack-dev-server` 为你提供了一个基本的 web server，并且具有 live reloading(实时重新加载) 功能。设置如下：
 
@@ -434,3 +436,122 @@ npm install --save-dev webpack-dev-server
 现在，在命令行中运行 `npm start`，
 
 webpack多个环境配置可参考：https://juejin.cn/post/6969480065025310727#heading-9
+
+
+
+### 6.引入sass，样式分离及css样式压缩
+
+针对不同的需求，首先要做的就是做好环境的区分
+
+**本地安装 cross-env [[文档地址](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fcross-env)]**
+
+```
+npm install cross-env -D
+```
+
+**修改 `./package.json`文件**
+
+```
+ ...
+ "scripts": {
+    "start": "cross-env NODE_ENV=development  webpack serve --open --config webpack.dev.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config webpack.dev.js",
+    "build": "cross-env NODE_ENV=production  webpack --config webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  ...
+```
+
+**安装 `sass-loader`**
+
+```
+npm install sass-loader sass --save-dev
+```
+
+**创建src/style.scss**
+
+```
+$body-color: rgb(23, 24, 24);
+
+body {
+  background-color: $body-color;
+}
+```
+
+引入src/index.js
+
+```
+...
+import './style.scss';
+...
+```
+
+修改webpack.common.js的配
+
+```
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
+const devMode = process.env.NODE_ENV !== "production";
+console.log(process.env.NODE_ENV, devMode)
+module.exports = {
+  entry: {
+    index: './src/index.js',
+    print: './src/print.js',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Production',
+    }),
+    new MiniCssExtractPlugin({ // 添加插件
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? "[name].css" : "[name].[contenthash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css",
+    }),
+  ],
+  output: {
+    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  module: {
+    rules: [ // 转换规则
+      {
+        test: /\.(s[ac]|c)ss$/i, //匹配所有的 sass/scss/css 文件
+        use: [
+          // 根据不同的环境执行不同loader，具体原因如下
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          // 将 CSS 转化成 CommonJS 模块
+          'css-loader',
+          // 将 Sass 编译成 CSS
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
+  },
+  optimization: {
+    minimizer: [
+      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+      new CssMinimizerPlugin(),//为了压缩css输出文件
+    ],
+  },
+};
+
+```
+
+推荐 `production` 环境的构建将 CSS 从你的 bundle 中分离出来，这样可以使用 CSS/JS 文件的并行加载。 这可以通过使用 `mini-css-extract-plugin` 来实现，因为它可以创建单独的 CSS 文件。 对于 `development` 模式（包括 `webpack-dev-server`），你可以使用 [style-loader](https://webpack.docschina.org/loaders/style-loader/)，因为它可以使用多个 标签将 CSS 插入到 DOM 中，并且反应会更快。
+
+> i 不要同时使用 `style-loader` 与 `mini-css-extract-plugin`。
+
+具体参考：
+
+[`mini-css-extract-plugin插件文档`](https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.docschina.org%2Fplugins%2Fmini-css-extract-plugin%2F)
+
+[CssMinimizerWebpackPlugin插件文档](https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/)

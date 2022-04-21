@@ -90,12 +90,11 @@ git branch -r| grep -v -E 'master|develop' | sed 's/origin\///g' | xargs -I {} g
 - **批量删除远端tag**
 
 ```
-/* 删除匹配到的tag-v1，保留其他的tag */
+/* 删除匹配到的v1，保留其他的tag */
+git show-ref --tag | awk '/^v1/ {print ":"$2}' |xargs -I {} git push origin :refs/tags/{}
 
-git show-ref --tag | awk '/^v/ {print ":"$2}' | xargs -I {} git push origin :refs/tags/{}
-
-/* 只想保留v2.0.0和v1.1.1，删除所有其他的分支 */
-git tag | grep -v -E "v2.0.0|v1.1.1" |xargs git tag -d
+/*删除所有其他的分支 */
+git tag | xargs -I {} git push origin :refs/tags/{}
 ```
 
 

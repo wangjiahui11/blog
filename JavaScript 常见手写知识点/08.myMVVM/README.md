@@ -101,7 +101,7 @@ var app = new Vue({
 3. 实现一个 - Watcher，作为连接 Observer 和 Compile 的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图
 4. MVVM 作为入口函数，整合以上三者
 
-![mvvm流程图](https://github.com/wangjiahui11/blog/blob/main/JavaScript%20%E5%B8%B8%E8%A7%81%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/08.myMVVM/img/mvvm.png?raw=true)
+![mvvm流程图](https://github.com/wangjiahui11/blog/blob/main/JavaScript%20%E5%B8%B8%E8%A7%81%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/08.myMVVM/img/mvvm%E6%B5%81%E7%A8%8B%E5%9B%BE.png?raw=true)
 
 ### 2.1 数据劫持 - Observer
 

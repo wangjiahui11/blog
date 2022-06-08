@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>乞丐版Vue-router的实现</title>
+  </head>
+
+  <body>
+   
+    <div id="app">
+      <div id="nav">
+        <router-link to="/home">Home</router-link>|
+        <router-link to="/about">About</router-link>
+      </div>
+      <router-view />
+    </div>
+
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- <script src="https://unpkg.com/vue-router@3.0.0/dist/vue-router.js"></script> -->
+
+    <script type="module">
+      import VueRouter from "./index.js";
+      Vue.use(VueRouter) // 使用插件
+
+      const routes = [
+        {
+          path: "/home",
+          name: "Home",
+          component: Vue.component("todo-item", {
+            template: "<h1>这是Home组件</h1>",
+          }),
+        },
+        {
+          path: "/about",
+          name: "About",
+          component: Vue.component("todo-item", {
+            template: "<h1>这是About组件</h1>",
+          }),
+        },
+      ];
+
+      const router = new VueRouter({
+        mode: "hash",
+        routes,
+      });
+
+
+      Vue.config.productionTip = false;
+      let vue = new Vue({
+        el: "#app",
+        router,
+      });
+      window.vue = vue;
+    </script>
+  </body>
+</html>

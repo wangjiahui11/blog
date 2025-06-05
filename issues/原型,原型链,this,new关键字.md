@@ -33,7 +33,7 @@ console.log(person.name) // will
 
 让我们用一张图表示构造函数和实例原型之间的关系：
 
-![prototype1](E:\wangjh\web资料\learn\blog\图片及截图\prototype1.png)
+![prototype1](https://github.com/wangjiahui11/blog/blob/main/图片及截图/prototype1.png)
 
 在这张图中我们用 Object.prototype 表示实例原型。
 
@@ -51,7 +51,7 @@ console.log(person.__proto__ === Person.prototype); // true
 
 于是我们更新下关系图：
 
-![prototype2](E:\wangjh\web资料\learn\blog\图片及截图\prototype2.png)
+![prototype2](https://github.com/wangjiahui11/blog/blob/main/图片及截图/prototype2.png)
 
 
 
@@ -68,7 +68,7 @@ console.log(Person === Person.prototype.constructor); // true
 
 于是我们更新下关系图：
 
-![prototype3](E:\wangjh\web资料\learn\blog\图片及截图\prototype3.png)
+![prototype3](https://github.com/wangjiahui11/blog/blob/main/图片及截图/prototype3.png)
 
 综上我们已经得出：构造函数，原型，实例之间的三角关系；
 
@@ -89,7 +89,7 @@ console.log(Object.getPrototypeOf(person) === Person.prototype) // true
 
 **完整的原型链**
 
-![prototype4](E:\wangjh\web资料\learn\blog\图片及截图\prototype4.png)
+![prototype4](https://github.com/wangjiahui11/blog/blob/main/图片及截图/prototype4.png)
 
 上面图形得到
 

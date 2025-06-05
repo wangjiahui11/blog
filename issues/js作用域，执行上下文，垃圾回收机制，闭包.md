@@ -101,7 +101,7 @@ swapColors()的局部环境开始时会先在自己的 变量对象中搜索变�
 - 执行函数代码
 - 垃圾回收
 
-​	![js代码执行的过程](E:\wangjh\web资料\learn\blog\图片及截图\js代码执行的过程.png)
+​	![js代码执行的过程](https://github.com/wangjiahui11/blog/blob/main/图片及截图/js代码执行的过程.png)
 
 ​	**作用域在解析的阶段已经确定了，执行上下文则是在函数执行之前确定；**
 

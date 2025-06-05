@@ -65,7 +65,7 @@ function chabngeColor(){
 changeColor(); // 这里只能访问 color  全局
 ```
 
-​	![作用域链](E:\wangjh\web资料\learn\blog\图片及截图\作用域链.png)
+​	![作用域链](https://github.com/wangjiahui11/blog/blob/main/图片及截图/作用域链.png)
 
 上述作用域链中包含 3个对象：
 

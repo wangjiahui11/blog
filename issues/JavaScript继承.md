@@ -20,7 +20,7 @@
 
 ​		其中，原型链继承和原型式继承有一样的优缺点，构造函数继承与寄生式继承也相互对应。寄生组合继承基于Object.create, 同时优化了组合继承，成为了完美的继承方式。ES6 Class Extends的结果与寄生组合继承基本一致，但是实现方案又略有不同。
 
-![extends](E:\wangjh\web资料\learn\blog\图片及截图\extends.png)
+![extends](https://github.com/wangjiahui11/blog/blob/main/图片及截图/extends.png)
 
 1. **原型链继承**
 
@@ -53,7 +53,7 @@
 
    **原型链继承特点：继承原型的属性和原型的方法**
 
-   ![extendPrototype](E:\wangjh\web资料\learn\blog\图片及截图\extendPrototype.png)
+   ![extendPrototype](https://github.com/wangjiahui11/blog/blob/main/图片及截图/extendPrototype.png)
 
    **缺点：多个实例对引用类型的操作会被篡改。**
 
@@ -155,7 +155,7 @@
    
    ```
 
-   ![extendPrototype2](E:\wangjh\web资料\learn\blog\图片及截图\extendPrototype2.png)
+   ![extendPrototype2](https://github.com/wangjiahui11/blog/blob/main/图片及截图/extendPrototype2.png)
 
    缺点：
 
@@ -196,7 +196,7 @@
    console.log(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
    ```
 
-   ![extendPrototype3](E:\wangjh\web资料\learn\blog\图片及截图\extendPrototype3.png)
+   ![extendPrototype3](https://github.com/wangjiahui11/blog/blob/main/图片及截图/extendPrototype3.png)
 
    核心：原型式继承的object方法本质上是对参数对象的一个浅复制。
    优点：父类方法可以复用
@@ -241,7 +241,7 @@
    anotherPerson.sayHi(); //"hi"。
    ```
 
-   ![extendPrototype4](E:\wangjh\web资料\learn\blog\图片及截图\extendPrototype4.png)
+   ![extendPrototype4](https://github.com/wangjiahui11/blog/blob/main/图片及截图/extendPrototype4.png)
 
    缺点（同原型式继承）：
 

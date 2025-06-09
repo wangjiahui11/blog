@@ -137,7 +137,8 @@
    // 第一次调用SuperType()
    SubType.prototype = new SuperType(); 
    // 重写SubType.prototype的constructor属性，指向自己的构造函数SubType
-   SubType.prototype.constructor = SubType; 
+   SubType.prototype.constructor = SubType;
+   
    SubType.prototype.sayAge = function(){
        console.log(this.age);
    };
@@ -166,7 +167,7 @@
 
    
 
-4. **原型式继承**
+4. **原生式继承**
 
    利用一个空对象作为中介，将某个对象直接赋值给空对象构造函数的原型。
 

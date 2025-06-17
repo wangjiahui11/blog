@@ -33,7 +33,7 @@
 
      栈内存：用来存放简单的数据类型；
 
-     ![stack类型](E:\wangjh\web资料\learn\blog\图片及截图\stack类型.png)
+     ![stack类型](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/stack类型.png)
 
      ```
      var a = 10
@@ -44,7 +44,7 @@
 
      堆内存：用来存放复杂的数据类型；
 
-     ![heap类型](E:\wangjh\web资料\learn\blog\图片及截图\heap类型.png)
+     ![heap类型](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/heap类型.png)
 
      ```
      var obj1 = {}
@@ -122,7 +122,7 @@
      // 返回 true
      ```
 
-     [例子1](![instanceof的原理实例](E:\wangjh\web资料\learn\blog\图片及截图\instanceof的原理实例.png))
+     [例子1](![instanceof的原理实例](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/instanceof的原理实例.png))
 
      **局限性：**instanceof不能检查基本数据类型；
 

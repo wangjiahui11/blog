@@ -157,7 +157,7 @@
 
   ##### 浏览器的渲染流程
 
-  ![渲染流程图](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/\渲染流程图.png)
+  ![渲染流程图](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/渲染流程图.png)
 
   1. 解析 HTML 文件，生成 DOM tree（可能会被CSS和JS的加载执行阻塞）；
   2. 解析 CSS 文件以及样式元素中的样式数据，生成 CSS Rules。

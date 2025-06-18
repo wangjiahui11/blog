@@ -6,7 +6,7 @@
 
   通常回答是：js单线程，event loop（事件循环） 宏任务，微任务。
 
-  那什么是线程，什么是线程，进程和线程的区别；微任务和宏任务的区别？包括node的运行机制又是什么呢？
+  那什么是线程，什么是进程，进程和线程的区别；微任务和宏任务的区别？包括node的运行机制又是什么呢？
 
   大致分为以下这样的步骤来帮助我们由广入深更加清晰的了解JS运行机制
 
@@ -149,7 +149,7 @@
     - 最后 Renderer 进程将结果传递给 Browser 进程；
   - Browser 进程接收到结果，并将结果绘制出来。
 
-  ![browser进程于Render进程通讯](E:\wangjh\web资料\learn\blog\图片及截图\browser进程于Render进程通讯.png)
+  ![browser进程于Render进程通讯](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/browser进程于Render进程通讯.png)
 
   到这里应该对浏览器的运作有一定理解了，我们再来看下浏览器是怎么渲染页面的。
 
@@ -157,7 +157,7 @@
 
   ##### 浏览器的渲染流程
 
-  ![渲染流程图](E:\wangjh\web资料\learn\blog\图片及截图\渲染流程图.png)
+  ![渲染流程图](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/\渲染流程图.png)
 
   1. 解析 HTML 文件，生成 DOM tree（可能会被CSS和JS的加载执行阻塞）；
   2. 解析 CSS 文件以及样式元素中的样式数据，生成 CSS Rules。
@@ -201,7 +201,7 @@
 
   ​		由于js的**运行环境**是单线程的，一些异步操作还是需要借助于浏览器这个宿主来实现。这里简单的一个图来描述`js`运行的时候的流程。主要运用了浏览器的**js引擎线程和事件触发线程**，有时候开启网络服务和定时器也会用到其他的线程。
 
-  ![js引擎部分](E:\wangjh\web资料\learn\blog\图片及截图\js引擎部分.png)
+  ![js引擎部分](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/js引擎部分.png)
 
   首先要知道，JS分为同步任务和异步任务
 
@@ -281,11 +281,11 @@
     
   **主要部分：** 事件队列在同步队列执行完后，首先会执行nextTick，等nextTick执行完成后，然后会先执行**micro task**， 等**micro task**队列空了之后，才会去执行**macro  task**，如果中间添加了**micro task**加入了**micro task**队列，会继续去执行**micro task**队列，然后再回到**macro  task**队列。js引擎存在**monitoring process进程**， 会不停的监听`task queue`（事件队列）
 
-  ![maco和mico task](E:\wangjh\web资料\learn\blog\图片及截图\maco和mico task.png)
+  ![maco和mico task](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/maco和mico task.png)
 
 - #### 图解完整的Event Loop
 
-  ![Event Loop](E:\wangjh\web资料\learn\blog\图片及截图\Event Loop.png)
+  ![Event Loop](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/Event Loop.png)
 
   > **一段代码块就是一个宏任务**。所有一般执行代码块的时候，也就是程序执行进入主线程了，主线程会根据不同的代码再分微任务和宏任务等待主线程执行完成后，不停地循环执行。
   >

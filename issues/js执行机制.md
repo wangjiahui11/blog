@@ -281,11 +281,11 @@
     
   **主要部分：** 事件队列在同步队列执行完后，首先会执行nextTick，等nextTick执行完成后，然后会先执行**micro task**， 等**micro task**队列空了之后，才会去执行**macro  task**，如果中间添加了**micro task**加入了**micro task**队列，会继续去执行**micro task**队列，然后再回到**macro  task**队列。js引擎存在**monitoring process进程**， 会不停的监听`task queue`（事件队列）
 
-  ![maco和mico task](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/maco和mico task.png)
+  ![maco和mico task](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/maco和mico%20task.png)
 
 - #### 图解完整的Event Loop
 
-  ![Event Loop](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/Event Loop.png)
+  ![Event Loop](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/Event%20Loop.png)
 
   > **一段代码块就是一个宏任务**。所有一般执行代码块的时候，也就是程序执行进入主线程了，主线程会根据不同的代码再分微任务和宏任务等待主线程执行完成后，不停地循环执行。
   >

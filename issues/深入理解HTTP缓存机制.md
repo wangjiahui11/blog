@@ -50,11 +50,11 @@
 
 2. 存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存，如下图
 
-   ​          ![强制缓存第二种情况](E:\wangjh\web资料\learn\blog\图片及截图\强制缓存第二种情况.png)
+   ​          ![强制缓存第二种情况](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/强制缓存第二种情况.png)
 
 3. 存在该缓存结果和缓存标识，且该结果尚未失效，强制缓存生效，直接返回该结果，如下图
 
-   ![强制缓存第三种情况](E:\wangjh\web资料\learn\blog\图片及截图\强制缓存第三种情况.png)
+   ![强制缓存第三种情况](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/强制缓存第三种情况.png)
 
    
 
@@ -80,7 +80,7 @@ Expires是HTTP/1.0控制网页缓存的字段，其值为服务器返回该请�
 - no-store：所有内容都不会被缓存，即不使用强制缓存，也不使用协商缓存
 - max-age=xxx (xxx is numeric)：本地缓存内容将在xxx秒后失效，后续再执行协商缓存机制判断是否使用缓存；
 
-![强制缓存策略](E:\wangjh\web资料\learn\blog\图片及截图\强制缓存策略.png)
+![强制缓存策略](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/强制缓存策略.png)
 
 
 
@@ -97,7 +97,7 @@ Expires是HTTP/1.0控制网页缓存的字段，其值为服务器返回该请�
 
 **举例：**当你打开一网页并刷新是，会在 DevTools Network看到如下情况
 
-![强制缓存实例](E:\wangjh\web资料\learn\blog\图片及截图\强制缓存实例.png)
+![强制缓存实例](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/强制缓存实例.png)
 
 > 这里会出现 from disk cache和from memory cache，他们之间有什么区别呢？
 
@@ -120,11 +120,11 @@ Expires是HTTP/1.0控制网页缓存的字段，其值为服务器返回该请�
 
 1. 协商缓存生效，返回304，如下
 
-   ![协商缓存成功](E:\wangjh\web资料\learn\blog\图片及截图\协商缓存成功.png)
+   ![协商缓存成功](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/协商缓存成功.png)
 
 2. 协商缓存失效，返回200和请求结果结果，如下
 
-   ![协商缓存失效](E:\wangjh\web资料\learn\blog\图片及截图\协商缓存失效.png)
+   ![协商缓存失效](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/协商缓存失效.png)
 
 同样，协商缓存的标识也是在响应报文的HTTP头中和请求结果一起返回给浏览器的，控制协商缓存的字段分别有：Last-Modified / If-Modified-Since和Etag / If-None-Match，其中Etag / If-None-Match的优先级比Last-Modified / If-Modified-Since高。
 

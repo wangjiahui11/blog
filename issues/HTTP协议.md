@@ -48,7 +48,7 @@ HTTP协议是基于 TCP/IP 协议的[**应用层协议**](http://www.ruanyifeng.
 
   - 请求体：请求内容主体
 
-  ![http请求报文](E:\wangjh\web资料\learn\blog\图片及截图\http请求报文.png)
+  ![http请求报文](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/http请求报文.png)
 
 - 响应报文
 
@@ -247,7 +247,7 @@ HTTP 首部字段根据实际用途被分为以下 4 种类型：
 
      ​		为解决上述 TCP 连接的问题，HTTP/1.1 和一部分的 HTTP/1.0 想出了持久连接（HTTP Persistent Connections，也称为 HTTP keep-alive 或 HTTP connection reuse）的方法。持久连接的特点是，**只要任意一端没有明确提出断开连接，则保持TCP连接状态。**
 
-     ![TCP持续连接](E:\wangjh\web资料\learn\blog\图片及截图\TCP持续连接.png)
+     ![TCP持续连接](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/TCP持续连接.png)
 
      ​       **持久连接的好处在于减少了 TCP 连接的重复建立和断开所造成的额外开销，减轻了服务器端的负载。另外， 减少开销的那部分时间，使 HTTP 请求和响应能够更早地结束，这样 Web 页面的显示速度也就相应提高了。**
      ​      在 HTTP/1.1 中，所有的连接默认都是持久连接，但在 HTTP/1.0 内并未标准化。虽然有一部分服务器通过非 标准的手段实现了持久连接，但服务器端不一定能够支持持久连接。毫无疑问，除了服务器端，客户端也需 要支持持久连接。
@@ -261,7 +261,7 @@ HTTP 首部字段根据实际用途被分为以下 4 种类型：
 
    - **管道化特点**
 
-     ![TCP管道化](E:\wangjh\web资料\learn\blog\图片及截图\TCP管道化.png)
+     ![TCP管道化](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/TCP管道化.png)
 
      ​		假如当请求一个包含 10 张图片的 HTML Web 页面，**与挨个连接相比，用持久连接可以让请求更快结束。 而管线化技术则比持久连接还要快**。请求数越多，时间差就越明显。客户端需要请求这十个资源。以前的做法是，在同一个TCP连接里面，先发送A请求，然后等待服务器做出回应，收到后再发出B请求，以此类推，而管道机制则是允许浏览器同时发出这十个请求，但是服务器还是按照顺序，先回应A请求，完成后再回应B请求。
      于是在使用持久连接的情况下，某个连接上消息的传递类似于
@@ -272,5 +272,5 @@ HTTP 首部字段根据实际用途被分为以下 4 种类型：
 
      **请求1->请求2->请求3->响应1->响应2->响应3**
 
-3. 
+  
 

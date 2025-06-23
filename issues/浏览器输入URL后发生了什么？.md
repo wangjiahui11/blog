@@ -99,7 +99,7 @@ scheme: // host.domain:port/ path / filename ? abc = 123 # 456789
 
 
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692e4385f72aae4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692e4385f72aae4~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -125,7 +125,7 @@ TCP 三次握手结束后，开始发送 HTTP 请求报文。
 假装我是一个传统的MVC模型
 ```
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692e55baf791128?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692e55baf791128~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -195,7 +195,7 @@ UI后端      (UI Backend)        － 用来绘制类似组合选择框及对话
 以webkit内核为例
 ```
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692e6c31379adc6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692e6c31379adc6~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -209,7 +209,7 @@ Bytes → characters → tokens → nodes → DOM
 
 
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692f37de1ac505e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f392c69b8b3c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -236,7 +236,7 @@ Bytes → characters → tokens → nodes → CSSOM
 
 
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692f392c69b8b3c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f392c69b8b3c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -248,7 +248,7 @@ Bytes → characters → tokens → nodes → CSSOM
 
 
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692f39d1fa1584e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f39d1fa1584e~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -262,7 +262,7 @@ Bytes → characters → tokens → nodes → CSSOM
 
 
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692f3e3ca738411?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f3e3ca738411~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 
@@ -286,7 +286,7 @@ Bytes → characters → tokens → nodes → CSSOM
 
 当数据传送完毕，需要断开 tcp 连接，此时发起 tcp 四次挥手。
 
-![img](https://user-gold-cdn.xitu.io/2019/2/27/1692f41b21b32870?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f41b21b32870~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
 
 
 

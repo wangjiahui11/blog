@@ -4,7 +4,7 @@
 
 打开浏览器从输入网址到网页呈现在大家面前，背后到底发生了什么？经历怎么样的一个过程？先给大家来张总体流程图，具体步骤请看下文分解！
 
-![url到页面的呈现过程](E:\wangjh\web资料\learn\blog\图片及截图\url到页面的呈现过程.png)
+![url到页面的呈现过程](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/url到页面的呈现过程.png)
 
 
 
@@ -81,7 +81,7 @@ scheme: // host.domain:port/ path / filename ? abc = 123 # 456789
 
       
 
-![DNS解析](E:\wangjh\web资料\learn\blog\图片及截图\DNS解析.png)
+![DNS解析](https://github.com/wangjiahui11/blog/blob/main/%E5%9B%BE%E7%89%87%E5%8F%8A%E6%88%AA%E5%9B%BE/DNS解析.png)
 
 ### DNS的优化与应用
 

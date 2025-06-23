@@ -508,7 +508,6 @@ Bytes → characters → tokens → nodes → CSSOM
 
 
 
-
 参考：
 
 [从URL输入到页面展现到底发生什么？](https://juejin.cn/post/6844903784229896199)
@@ -517,97 +516,3 @@ Bytes → characters → tokens → nodes → CSSOM
 
 [从URL输入到页面展现](https://www.clloz.com/programming/front-end/2018/12/05/url/))
 
-
-
-```
-其中比较关键的几个步骤
-1. Conversion转换：浏览器将获得的HTML内容（Bytes）基于他的编码转换为单个字符
-
-2. Tokenizing分词：浏览器按照HTML规范标准将这些字符转换为不同的标记token。每个token都有自己独特的含义以及规则集
-
-3. Lexing词法分析：分词的结果是得到一堆的token，此时把他们转换为对象，这些对象分别定义他们的属性和规则
-
-4. DOM构建：因为HTML标记定义的就是不同标签之间的关系，这个关系就像是一个树形结构一样
-例如：body对象的父节点就是HTML对象，然后段略p对象的父节点就是body对象
-```
-
-#### 2. 解析CSS，生成CSS规则树
-
-同理，CSS规则树的生成也是类似。
-
-```
-Bytes → characters → tokens → nodes → CSSOM
-复制代码
-```
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f392c69b8b3c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
-
-
-
-#### 3. 合并DOM树和CSS规则，生成render树
-
-当DOM树和CSSOM都有了后，就要开始构建渲染树了
-
-一般来说，渲染树和DOM树相对应的，但不是严格意义上的一一对应,因为有一些不可见的DOM元素不会插入到渲染树中，如head这种不可见的标签或者display: none等
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f39d1fa1584e~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
-
-
-
-#### 4. 布局render树（Layout/Reflow），负责各元素尺寸、位置的计算
-
-布局：通过渲染树中渲染对象的信息，计算出每一个渲染对象的位置和尺寸。
-
-#### 5. 绘制render树（Paint），绘制页面像素信息
-
-绘制阶段，系统会遍历呈现树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。
-
-
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f3e3ca738411~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
-
-
-
-```
-这张图片中重要的四个步骤
-1. 计算CSS样式
-
-2. 构建渲染树
-
-3. 布局，主要定位坐标和大小，是否换行，各种position overflow z-index属性
-
-4. 绘制，将图像绘制出来
-```
-
-- Layout，也称为Reflow，即回流。一般意味着元素的内容、结构、位置或尺寸发生了变化，需要重新计算样式和渲染树
-- Repaint，即重绘。意味着元素发生的改变只是影响了元素的一些外观之类的时候（例如，背景色，边框颜色，文字颜色等），此时只需要应用新样式绘制这个元素就可以了
-
-
-
-## 七、断开连接
-
-当数据传送完毕，需要断开 tcp 连接，此时发起 tcp 四次挥手。
-
-![img](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/27/1692f41b21b32870~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp)
-
-
-
-- 发起方向被动方发送报文，Fin、Ack、Seq，表示已经没有数据传输了。并进入 FIN_WAIT_1 状态。 `(第一次挥手：由浏览器发起的，发送给服务器，我请求报文发送完了，你准备关闭吧)`
-- 被动方发送报文，Ack、Seq，表示同意关闭请求。此时主机发起方进入 FIN_WAIT_2 状态。 `(第二次挥手：由服务器发起的，告诉浏览器，我请求报文接受完了，我准备关闭了，你也准备吧)`
-- 被动方向发起方发送报文段，Fin、Ack、Seq，请求关闭连接。并进入 LAST_ACK 状态。 `(第三次挥手：由服务器发起，告诉浏览器，我响应报文发送完了，你准备关闭吧)`
-- 发起方向被动方发送报文段，Ack、Seq。然后进入等待 TIME_WAIT 状态。被动方收到发起方的报文段以后关闭连接。发起方等待一定时间未收到回复，则正常关闭。 `(第四次挥手：由浏览器发起，告诉服务器，我响应报文接受完了，我准备关闭了，你也准备吧)`
-
-
-
-
-参考：
-
-[从URL输入到页面展现到底发生什么？](https://juejin.cn/post/6844903784229896199)
-
-[经典面试题：从 URL 输入到页面展现到底发生什么？](https://blog.fundebug.com/2019/02/28/what-happens-from-url-to-webpage/)
-
-[从URL输入到页面展现](https://www.clloz.com/programming/front-end/2018/12/05/url/)
